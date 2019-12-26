@@ -1,7 +1,4 @@
-export const sum = (a: number, b: number) => {
-    if ('development' === process.env.NODE_ENV) {
-        console.log('boop')
-    }
-    return a + b
-}
+import { processUrl } from './lib/UrlProcessor'
 
+const result = processUrl('http://google')
+console.log(result)

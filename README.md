@@ -1,4 +1,8 @@
-# TSDX Bootstrap
+# url-shortener
+
+Shortens input URL
+
+##
 
 This project was bootstrapped with [TSDX](https://github.com/jaredpalmer/tsdx).
 

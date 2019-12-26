@@ -11,6 +11,7 @@
   ],
   "scripts": {
     "start": "tsdx watch",
+    "watch": "tsdx watch --onSuccess 'echo built'",
     "build": "tsdx build",
     "test": "tsdx test",
     "lint": "tsdx lint",
@@ -29,9 +30,14 @@
       "pre-commit": "tsdx lint"
     }
   },
-  "peerDependencies": {},
+  "dependencies": {
+    "nanoid": "^2.1.8",
+    "valid-url": "^1.0.9"
+  },
   "devDependencies": {
     "@types/jest": "^24.0.24",
+    "@types/nanoid": "^2.1.0",
+    "@types/valid-url": "^1.0.2",
     "@typescript-eslint/eslint-plugin": "^2.13.0",
     "@typescript-eslint/parser": "^2.13.0",
     "eslint": "^6.8.0",
@@ -39,5 +45,6 @@
     "tsdx": "^0.12.0",
     "tslib": "^1.10.0",
     "typescript": "^3.7.4"
-  }
+  },
+  "peerDependencies": {}
 }
