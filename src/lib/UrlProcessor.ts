@@ -1,5 +1,6 @@
 import nanoid from 'nanoid'
 import { isUri } from 'valid-url'
+import config from 'config'
 
 type Result = {
     shortUrl?: string;
@@ -19,15 +20,13 @@ export type Response = Result | Error
 export function processUrl(url: string): Response {
     if (!isUri(url)) {
         return {
-            error: {
-                code: 0,
-                status: `"${url}" is not an URL string!`
-            }
+            code: 0,
+            status: `"${url}" is not a valid URL string!`
         }
     }
 
     return {
-        shortUrl: `http://localhost:${4000}/${nanoid(5)}`,
+        shortUrl: `http://${config.get('Server.host')}:${config.get('Server.port')}/${nanoid(5)}`,
         fullUrl: url,
         visits: 0,
     }
