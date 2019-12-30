@@ -1,33 +1,45 @@
-import nanoid from 'nanoid'
-import { isUri } from 'valid-url'
 import config from 'config'
+import { createShortUrl } from './UrlProcessorHelper'
+import {isUri} from "valid-url";
+import {ServerError} from "./ServerError";
 
-type Result = {
-    shortUrl?: string;
-    fullUrl?: string;
-    visits?: number,
-}
-
-type Error = {
-    error: {
-        code: number,
-        status: string,
+export type Result = {
+    result?: {
+        shortUrl?: string,
+        fullUrl?: string,
+        visits?: number,
     }
 }
 
-export type Response = Result | Error
+export type Error = {
+    error?: {
+        code: number,
+        message: string,
+        status: string,
+    },
+}
+
+export interface Response extends Result, Error {}
 
 export function processUrl(url: string): Response {
-    if (!isUri(url)) {
-        return {
-            code: 0,
-            status: `"${url}" is not a valid URL string!`
+    try {
+        if (!isUri(url)) {
+            throw new ServerError(100, `"${url}" is not a valid URL string!`)
         }
-    }
-
-    return {
-        shortUrl: `http://${config.get('Server.host')}:${config.get('Server.port')}/${nanoid(5)}`,
-        fullUrl: url,
-        visits: 0,
+        const urlObj = new URL(url)
+        if (urlObj.hostname === config.get('Server.host')) {
+            // return getFullUrl(url)
+            return createShortUrl(url)
+        } else {
+            return createShortUrl(url)
+        }
+    } catch (err) {
+        return {
+            error: {
+                code: err.code,
+                message: err.message,
+                status: err.stack,
+            },
+        }
     }
 }
