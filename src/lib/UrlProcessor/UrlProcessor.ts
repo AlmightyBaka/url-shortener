@@ -1,7 +1,5 @@
 import config from 'config'
-import { createShortUrl } from './UrlProcessorHelper'
-import {isUri} from "valid-url";
-import {ServerError} from "./ServerError";
+import { createShortUrl, isValidUri } from './UrlProcessorHelper'
 
 export type Result = {
     result?: {
@@ -23,10 +21,9 @@ export interface Response extends Result, Error {}
 
 export function processUrl(url: string): Response {
     try {
-        if (!isUri(url)) {
-            throw new ServerError(100, `"${url}" is not a valid URL string!`)
-        }
+        isValidUri(url)
         const urlObj = new URL(url)
+
         if (urlObj.hostname === config.get('Server.host')) {
             // return getFullUrl(url)
             return createShortUrl(url)
@@ -36,7 +33,7 @@ export function processUrl(url: string): Response {
     } catch (err) {
         return {
             error: {
-                code: err.code,
+                code: err.code ?? 500,
                 message: err.message,
                 status: err.stack,
             },
