@@ -1,17 +1,18 @@
 import nanoid from 'nanoid'
 import config from 'config'
-import { isUri } from 'valid-url'
 import { ServerError } from '../ServerError'
 import { Response } from "lib/UrlProcessor/UrlProcessor";
 
-export function isValidUri(url: string) {
-    if (!isUri(url)) {
+export function isValidUrl(url: string): URL {
+    try {
+        return new URL(url)
+    } catch (err) {
         throw new ServerError(100, `"${url}" is not a valid URL string!`)
     }
 }
 
 export function createShortUrl(url: string): Response {
-    isValidUri(url)
+    isValidUrl(url)
 
     return {
         result: {

@@ -1,5 +1,5 @@
 import config from 'config'
-import { createShortUrl, isValidUri } from './UrlProcessorHelper'
+import { createShortUrl, isValidUrl } from './UrlProcessorHelper'
 
 export type Result = {
     result?: {
@@ -21,7 +21,7 @@ export interface Response extends Result, Error {}
 
 export function processUrl(url: string): Response {
     try {
-        isValidUri(url)
+        isValidUrl(url)
         const urlObj = new URL(url)
 
         if (urlObj.hostname === config.get('Server.host')) {
