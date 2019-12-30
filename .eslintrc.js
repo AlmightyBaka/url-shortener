@@ -14,6 +14,5 @@ module.exports = {
   rules: {
     "indent": ["error", 4],
     "semi": ["error", "never", { "beforeStatementContinuationChars": "never"}],
-    "delimiter": ["error", "comma"],
   }
 }
