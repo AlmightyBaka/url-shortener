@@ -2,6 +2,7 @@ import nanoid from 'nanoid'
 import config from 'config'
 import { ServerError } from '../ServerError'
 import { Response } from './UrlProcessor'
+import { redisExecute } from "../Data/Redis"
 
 const hostname = `http://${config.get('Server.host')}:${config.get(
     'Server.port'
@@ -15,10 +16,16 @@ export function isValidUrl(url: string): URL {
     }
 }
 
-export function createShortUrl(fullUrl: string): Response {
+export async function createShortUrl(fullUrl: string): Promise<Response> {
     isValidUrl(fullUrl)
 
     const id = nanoid(5)
+    const result = await redisExecute(async (redis) => {
+        const res = await redis.get('key1')
+        return res
+    })
+    console.log(result)
+
     const shortUrl = `${hostname}/${id}`
 
     return {

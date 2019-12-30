@@ -32,7 +32,8 @@
   },
   "dependencies": {
     "config": "^3.2.4",
-    "nanoid": "^2.1.8"
+    "nanoid": "^2.1.8",
+    "tedis": "^0.1.10"
   },
   "devDependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.7.5",

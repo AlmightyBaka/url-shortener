@@ -19,16 +19,16 @@ export type Error = {
 
 export interface Response extends Result, Error {}
 
-export function processUrl(url: string): Response {
+export async function processUrl(url: string): Promise<Response> {
     try {
         isValidUrl(url)
         const urlObj = new URL(url)
 
         if (urlObj.hostname === config.get('Server.host')) {
-            // return getFullUrl(url)
-            return createShortUrl(url)
+            // return await getFullUrl(url)
+            return await createShortUrl(url)
         } else {
-            return createShortUrl(url)
+            return await createShortUrl(url)
         }
     } catch (err) {
         return {

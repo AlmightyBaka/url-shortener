@@ -5,8 +5,8 @@ describe('UrlProcessor', () => {
         expect(() => processUrl('http://google')).not.toThrow()
     })
 
-    it('makes short URL from valid input', () => {
-        const response = processUrl('http://google')
+    it('makes short URL from valid input', async () => {
+        const response = await processUrl('http://google')
         expect(response).toHaveProperty('result')
         expect(response).not.toHaveProperty('error')
 
@@ -17,8 +17,8 @@ describe('UrlProcessor', () => {
         expect(result).toHaveProperty('visits')
     })
 
-    it('returns error from invalid input', () => {
-        const response = processUrl('http')
+    it('returns error from invalid input', async() => {
+        const response = await processUrl('http')
         expect(response).toHaveProperty('error')
 
         const error = response.error

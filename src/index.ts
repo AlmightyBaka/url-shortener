@@ -1,4 +1,7 @@
-import { processUrl } from './lib/UrlProcessor/UrlProcessor'
+import { processUrl } from "./lib/UrlProcessor/UrlProcessor";
 
-const result = processUrl('http://google')
-console.log(result)
+(async () => {
+    const result = await processUrl('http://google')
+    console.log(result)
+    return
+})()
