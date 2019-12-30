@@ -3,18 +3,18 @@ import { createShortUrl, isValidUrl } from './UrlProcessorHelper'
 
 export type Result = {
     result?: {
-        shortUrl?: string,
-        fullUrl?: string,
-        visits?: number,
+        shortUrl?: string
+        fullUrl?: string
+        visits?: number
     }
 }
 
 export type Error = {
     error?: {
-        code: number,
-        message: string,
-        status: string,
-    },
+        code: number
+        message: string
+        status: string
+    }
 }
 
 export interface Response extends Result, Error {}

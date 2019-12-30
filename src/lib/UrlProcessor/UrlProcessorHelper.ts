@@ -1,7 +1,11 @@
 import nanoid from 'nanoid'
 import config from 'config'
 import { ServerError } from '../ServerError'
-import { Response } from "lib/UrlProcessor/UrlProcessor";
+import { Response } from './UrlProcessor'
+
+const hostname = `http://${config.get('Server.host')}:${config.get(
+    'Server.port'
+)}`
 
 export function isValidUrl(url: string): URL {
     try {
@@ -11,21 +15,22 @@ export function isValidUrl(url: string): URL {
     }
 }
 
-export function createShortUrl(url: string): Response {
-    isValidUrl(url)
+export function createShortUrl(fullUrl: string): Response {
+    isValidUrl(fullUrl)
+
+    const id = nanoid(5)
+    const shortUrl = `${hostname}/${id}`
 
     return {
         result: {
-            shortUrl: `http://${config.get('Server.host')}:${config.get(
-                'Server.port'
-            )}/${nanoid(5)}`,
-            fullUrl: url,
+            shortUrl,
+            fullUrl,
             visits: 0,
         },
     }
 }
 
-// export function getFullUrl (url: string): Response {
+// export function getFullUrl (shortUrl: string): Response {
 //     return {
 //         result: {
 //             shortUrl: url,
@@ -34,4 +39,3 @@ export function createShortUrl(url: string): Response {
 //         }
 //     }
 // };
-

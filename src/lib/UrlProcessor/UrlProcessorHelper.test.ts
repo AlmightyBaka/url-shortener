@@ -1,4 +1,4 @@
-import { isValidUrl } from "./UrlProcessorHelper";
+import { isValidUrl } from './UrlProcessorHelper'
 
 describe('UrlProcessorHelper', () => {
     describe('isValidUri', () => {
@@ -6,7 +6,7 @@ describe('UrlProcessorHelper', () => {
             expect(() => isValidUrl('http://google.com')).not.toThrow()
         })
 
-        it('runs with valid URL', () => {
+        it('runs with invalid URL', () => {
             expect(() => isValidUrl('http')).toThrow()
         })
     })
