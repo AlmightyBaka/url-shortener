@@ -8,7 +8,7 @@ const hostname = `http://${config.get('Server.host')}:${config.get(
     'Server.port'
 )}`
 
-export function isValidUrl(url: string): URL {
+export function getUrlObject(url: string): URL {
     try {
         return new URL(url)
     } catch (err) {

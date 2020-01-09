@@ -1,11 +1,12 @@
 import config from 'config'
-import { createShortUrl, isValidUrl } from './UrlProcessorHelper'
+import { createShortUrl, getFullUrl, getUrlObject } from './UrlProcessorHelper'
+import { CloseRedis, ConnectRedis } from "../Data/Redis";
 
 export type Result = {
     result?: {
-        shortUrl?: string
-        fullUrl?: string
-        visits?: number
+        shortUrl: string
+        fullUrl: string
+        visits: number
     }
 }
 
@@ -21,14 +22,13 @@ export interface Response extends Result, Error {}
 
 export async function processUrl(url: string): Promise<Response> {
     try {
-        isValidUrl(url)
-        const urlObj = new URL(url)
+        const urlObj = getUrlObject(url)
 
+        await ConnectRedis()
         if (urlObj.hostname === config.get('Server.host')) {
-            // return await getFullUrl(url)
-            return await createShortUrl(url)
+            return await getFullUrl(urlObj)
         } else {
-            return await createShortUrl(url)
+            return await createShortUrl(urlObj)
         }
     } catch (err) {
         return {
@@ -38,5 +38,7 @@ export async function processUrl(url: string): Promise<Response> {
                 status: err.stack,
             },
         }
+    } finally {
+        await CloseRedis()
     }
 }
