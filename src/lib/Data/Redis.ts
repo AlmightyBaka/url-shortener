@@ -2,8 +2,12 @@ import config from 'config'
 import { Tedis, TedisPool } from 'tedis'
 import { ServerError } from "../ServerError";
 
-let pool: TedisPool
+// альтернативный вариант написания модуля Redis: ООП-стиль с использованием Class и инкапсулированием
+// всей логики внутри класса. В данном случае я решил использовать функциональный стиль и
+// подключение Redis в global state, так как в маленьком приложении простота важнее и
+// позволяет более простое использование Redis.
 
+let pool: TedisPool
 export async function ConnectRedis(): Promise<void> {
     try {
         pool = new TedisPool({
