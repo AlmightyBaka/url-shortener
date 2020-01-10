@@ -33,7 +33,8 @@
   "dependencies": {
     "config": "^3.2.4",
     "nanoid": "^2.1.8",
-    "tedis": "^0.1.10"
+    "tedis": "^0.1.10",
+    "yargs": "^15.1.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.7.5",
@@ -41,6 +42,7 @@
     "@types/jest": "^24.0.25",
     "@types/nanoid": "^2.1.0",
     "@types/valid-url": "^1.0.2",
+    "@types/yargs": "^15.0.0",
     "@typescript-eslint/eslint-plugin": "^2.13.0",
     "@typescript-eslint/parser": "^2.13.0",
     "eslint": "^6.8.0",
