@@ -23,7 +23,8 @@ export async function ConnectRedis(): Promise<void> {
 
 export async function CloseRedis(): Promise<void> {
     if (pool === undefined) {
-        throw new ServerError(200, `Error connecting to Redis: use ConnectRedis() first!`)
+        // throw new ServerError(200, `Error connecting to Redis: use ConnectRedis() first!`)
+        return
     }
     try {
         pool.release()

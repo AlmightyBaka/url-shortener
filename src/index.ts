@@ -1,5 +1,6 @@
-import yargs from 'yargs'
-import { processUrl } from "./lib/UrlProcessor/UrlProcessor";
+import { processUrl } from './lib/UrlProcessor/UrlProcessor'
+import * as program from 'commander'
+// import launchServer from './lib/Server/server'
 
 // (async () => {
 //     const result = await processUrl('http://localhost:4000/t_yWW')
@@ -8,29 +9,20 @@ import { processUrl } from "./lib/UrlProcessor/UrlProcessor";
 //     return
 // })()
 
-yargs.command('set [url]', 'Get a shortened version of URL'
-    , (yargs) => {
-        yargs.positional('url', {
-            describe: 'URL to be shortened',
-            type: 'string',
-        })
-    }, async (args) => {
-        const result = await processUrl(args.url as string)
-        console.log(result)
-    })
-.demandOption(['url'], 'Please provide an URL')
+program.name('url-shortener')
 
-yargs.command('get [url]', 'Get original version of URL'
-    , (yargs) => {
-        yargs.positional('url', {
-            describe: 'URL to get original of',
-            type: 'string',
-        })
-    }, async (args) => {
-        const result = await processUrl(args.url as string)
-        console.log(result)
-    })
-.demandOption(['url'], 'Please provide an URL')
+program.command('server')
+.description('Launch an API endpoint for getting URLs')
+.action(() => {
+    console.log('server')
+    // launchServer()
+})
 
-yargs.help()
-.argv
+program.command('* <url>')
+.description('Get a full or shortened version of URL, depending on the input')
+.action(async (url) => {
+    const result = await processUrl(url)
+    console.log(result)
+})
+
+program.parse(process.argv)
