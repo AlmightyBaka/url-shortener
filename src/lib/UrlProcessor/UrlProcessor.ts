@@ -1,6 +1,6 @@
 import config from 'config'
 import { createShortUrl, getFullUrl, getUrlObject } from './UrlProcessorHelper'
-import { CloseRedis, ConnectRedis } from "../Data/Redis";
+import { CloseRedis, ConnectRedis } from "../Data/Redis"
 
 export type Result = {
     result?: {

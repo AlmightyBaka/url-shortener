@@ -1,28 +1,25 @@
-import { processUrl } from './lib/UrlProcessor/UrlProcessor'
+import * as request from 'request-promise-native'
 import * as program from 'commander'
-// import launchServer from './lib/Server/server'
-
-// (async () => {
-//     const result = await processUrl('http://localhost:4000/t_yWW')
-//     // const result = await processUrl('https://google')
-//     console.log(result)
-//     return
-// })()
+import { serverUrl, launchServer } from './lib/Server/server'
 
 program.name('url-shortener')
 
 program.command('server')
 .description('Launch an API endpoint for getting URLs')
 .action(() => {
-    console.log('server')
-    // launchServer()
+    launchServer()
 })
 
 program.command('* <url>')
 .description('Get a full or shortened version of URL, depending on the input')
 .action(async (url) => {
-    const result = await processUrl(url)
-    console.log(result)
+    const req = await request.get({
+        uri: `http://${serverUrl}/url`,
+        body: { url },
+        json: true // Automatically stringifies the body to JSON
+    })
+
+    console.log(req)
 })
 
 program.parse(process.argv)
