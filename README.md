@@ -2,6 +2,29 @@
 
 Shortens input URL
 
+```
+> index.js -h
+
+Usage: url-shortener [options] [command]
+
+Options:
+  -h, --help  output usage information
+
+Commands:
+  server      Launch an API endpoint for getting URLs
+  <url>      Get a full or shortened version of URL, depending on the input
+
+```
+
+This app is a very simple version of an URL shortener API.
+When a new URL is sent to it, it checks if it already exists in the Redis database,
+and returns a JSON containing the short URL version.
+Sending this short URL to the same API endpoint will return a full URL as well as the amount of times this URL was requested.
+
+#### Requirements
+
+Redis server should be running. All configs are stored in JSON5 format in `config` folder.
+
 ##
 
 This project was bootstrapped with [TSDX](https://github.com/jaredpalmer/tsdx).
