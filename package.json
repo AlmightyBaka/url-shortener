@@ -34,7 +34,7 @@
     "commander": "^4.1.0",
     "config": "^3.2.5",
     "express": "^4.17.1",
-    "nanoid": "^2.1.10",
+    "nanoid": "^3.1.31",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.8",
     "tedis": "^0.1.10",
